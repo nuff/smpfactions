@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SMPFactions">
+    <output-path>$PROJECT_DIR$/out/artifacts/SMPFactions</output-path>
+    <root id="archive" name="SMPFactions.jar">
+      <element id="module-output" name="smpfactions" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,42 @@
+name: SMPFactions
+main: cc.bytewithasix.smpfactions.Main
+version: 1.0
+api-version: 1.16
+description: A plugin for an interesting Minecraft server.
+commands:
+  faccreate:
+    description: Create a faction
+    usage: /faccreate <democracy/monarchy> <name>
+    permission: smpfactions.create
+  facdelete:
+    description: Delete a faction
+    usage: /facdelete <name>
+    permission: smpfactions.delete
+  facinfo:
+    description: Display information about your faction
+    usage: /facinfo
+    permission: smpfactions.info
+  facinvite:
+    description: Invite someone to your faction
+    usage: /facinvite <username>
+    permission: smpfactions.invite
+  facuninvite:
+    description: Revoke someone's invite to your faction
+    usage: /facuninvite <username>
+    permission: smpfactions.uninvite
+  fackick:
+    description: Kick someone from your faction
+    usage: /fackick <username>
+    permission: smpfactions.kick
+  factransfer:
+    description: Transfer a faction's ownership to another user
+    usage: /factransfer <username>
+    permission: smpfactions.transfer
+  facboundaries:
+    description: Set boundaries for your faction
+    usage: /facboundaries <setFirst/setSecond>
+    permission: smpfactions.boundaries
+  facwar:
+    description: Declare war on another faction
+    usage: /facwar declare <factionName>
+    permission: smpfactions.war

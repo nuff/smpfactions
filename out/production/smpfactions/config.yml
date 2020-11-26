@@ -1,0 +1,13 @@
+database:
+  host: localhost
+  port: 3306
+  database: database
+  user: root
+  password: password
+factions:
+  perMemberChunks: 3
+  maxFactionSize: 5
+wars:
+  membersOnlineToStartWar: 3
+  enabled: false
+  graceDurationInMinutes: 60

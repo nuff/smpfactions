@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class FactionEvents implements Listener {
+public class FactionListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {

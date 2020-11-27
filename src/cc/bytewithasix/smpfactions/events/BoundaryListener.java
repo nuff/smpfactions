@@ -20,7 +20,7 @@ import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 
-public class BoundaryEvents implements Listener {
+public class BoundaryListener implements Listener {
 
     //Prevent breaking blocks
     @EventHandler(priority = EventPriority.HIGH)

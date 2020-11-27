@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public class ClickEvent implements Listener {
+public class ClickListener implements Listener {
     class TempMember {
         private String name;
         private boolean leader;

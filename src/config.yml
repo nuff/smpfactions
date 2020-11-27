@@ -11,3 +11,10 @@ wars:
   membersOnlineToStartWar: 3
   enabled: false
   graceDurationInMinutes: 60
+tablist:
+  serverName: §6SMPFactions
+  showServerName: true
+  showOnlinePlayers: true
+  showIngameTime: true
+  # This option is the only way for users to see information about the war they are in.
+  showOngoingWars: true

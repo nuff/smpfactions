@@ -21,6 +21,12 @@ public class War {
         this.graceMinutes = graceMinutes;
     }
 
+    public boolean isGrace() {
+        if(grace == 1) return true;
+        return false;
+    }
+
+    //Getters
     public int getId() {
         return id;
     }

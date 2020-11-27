@@ -5,7 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
-public class ExplodeEvent implements Listener {
+public class ExplodeListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onExplode(EntityExplodeEvent event) {

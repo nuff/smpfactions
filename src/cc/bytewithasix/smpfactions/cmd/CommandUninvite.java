@@ -1,6 +1,7 @@
 package cc.bytewithasix.smpfactions.cmd;
 
 import cc.bytewithasix.smpfactions.Main;
+import cc.bytewithasix.smpfactions.utils.MessageUtils;
 import cc.bytewithasix.smpfactions.utils.MysqlGetterSetter;
 import cc.bytewithasix.smpfactions.obj.Faction;
 import cc.bytewithasix.smpfactions.obj.Member;
@@ -21,18 +22,18 @@ public class CommandUninvite implements CommandExecutor {
             UUID pUUID = p.getUniqueId();
 
             if(!p.hasPermission("smpfactions.uninvite")) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "No permission!");
+                MessageUtils.smpError(p, "No permission.");
                 return true;
             }
 
             if(args.length < 1) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You have not provided enough arguments. Correct usage: /facuninvite <username>");
+                MessageUtils.smpError(p, "You have not provided enough arguments. Correct usage: /facuninvite <username>");
                 return true;
             }
 
             Player invPlayer = Bukkit.getPlayer(args[0]);
             if(invPlayer != null && invPlayer.equals(p)) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You can't uninvite yourself.");
+                MessageUtils.smpError(p, "You can't uninvite yourself.");
                 return true;
             }
 
@@ -41,30 +42,30 @@ public class CommandUninvite implements CommandExecutor {
             if(member.getFactionId() != 0) {
                 faction = MysqlGetterSetter.instance.getFaction(member.getFactionId());
                 if(faction == null) {
-                    sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "The faction you are uninviting someone to doesn't exist. This is most likely a bug, please contact an administrator.");
+                    MessageUtils.smpError(p, "The faction you are uninviting someone to doesn't exist. This is most likely a bug, please contact an administrator.");
                     return true;
                 }
             } else {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You are not in a faction.");
+                MessageUtils.smpError(p, "You are not in a faction.");
                 return true;
             }
 
             if(!member.isLeader()) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You are not the leader of your faction.");
+                MessageUtils.smpError(p, "You are not the leader of your faction.");
                 return true;
             }
 
             if(invPlayer != null && invPlayer.isOnline()) {
                 if(Main.instance.getFactionInv().containsKey(invPlayer)) {
                     Main.instance.getFactionInv().remove(invPlayer);
-                    sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.GREEN + "You have uninvited " + ChatColor.DARK_GREEN + invPlayer.getDisplayName() + ChatColor.GREEN + " from your faction.");
-                    invPlayer.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.AQUA + "You have been uninvited from " + ChatColor.DARK_AQUA + faction.getName() + ChatColor.AQUA + ".");
+                    MessageUtils.smpSuccess(p, String.format("You have uninvited %s%s from your faction.", ChatColor.DARK_GREEN + invPlayer.getDisplayName(), ChatColor.GREEN));
+                    MessageUtils.smpImportant(invPlayer, String.format("You have been uninvited from %s%s.", ChatColor.DARK_AQUA + faction.getName(), ChatColor.AQUA));
                     return true;
                 } else {
-                    p.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "This player is not invited.");
+                    MessageUtils.smpError(p, "This player is not invited.");
                 }
             } else {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "The player " + args[0] + " is not online.");
+                MessageUtils.smpError(p, "The player " + args[0] + " is not online.");
                 return true;
             }
         }

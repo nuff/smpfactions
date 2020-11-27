@@ -1,5 +1,6 @@
 package cc.bytewithasix.smpfactions.cmd;
 
+import cc.bytewithasix.smpfactions.utils.MessageUtils;
 import cc.bytewithasix.smpfactions.utils.MysqlGetterSetter;
 import cc.bytewithasix.smpfactions.obj.Faction;
 import cc.bytewithasix.smpfactions.obj.Member;
@@ -18,30 +19,30 @@ public class CommandTransfer implements CommandExecutor {
             Player p = (Player) sender;
 
             if(!p.hasPermission("smpfactions.transfer")) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "No permission.");
+                MessageUtils.smpError(p, "No permission.");
                 return true;
             }
 
             if(args.length < 1) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You have not provided enough arguments. Correct usage: /facinvite <username>");
+                MessageUtils.smpError(p, "You have not provided enough arguments. Correct usage: /facinvite <username>");
                 return true;
             }
 
             Player transferPlayer = Bukkit.getPlayer(args[0]);
             if(transferPlayer != null && transferPlayer.equals(p)) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You can't transfer to yourself.");
+                MessageUtils.smpError(p, "You can't transfer to yourself.");
                 return true;
             }
 
             Member member = MysqlGetterSetter.instance.getMember(p.getUniqueId());
             Faction faction = MysqlGetterSetter.instance.getFaction(member.getFactionId());
             if(faction == null) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You are not in a faction.");
+                MessageUtils.smpError(p, "You are not in a faction.");
                 return true;
             }
 
             if(!member.isLeader()) {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You are not the leader of your faction.");
+                MessageUtils.smpError(p, "You are not the leader of your faction.");
                 return true;
             }
 
@@ -50,11 +51,11 @@ public class CommandTransfer implements CommandExecutor {
                 MysqlGetterSetter.instance.memberUpdateFaction(p.getUniqueId(), member.getFactionId(), false);
                 MysqlGetterSetter.instance.memberUpdateFaction(transferPlayer.getUniqueId(), member.getFactionId(), true);
                 MysqlGetterSetter.instance.updateFactionOwner(faction.getId(), transferPlayer.getUniqueId());
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.DARK_RED + "The leadership of your faction has successfully been transferred.");
-                transferPlayer.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.GREEN + "You are now the leader of " + ChatColor.DARK_GREEN + faction.getName() + ChatColor.GREEN + ".");
+                MessageUtils.smpSuccess(p, "The leadership of your faction has successfully been transferred.");
+                MessageUtils.smpSuccess(transferPlayer, String.format("You are now the leader of %s%s.", ChatColor.DARK_GREEN + faction.getName(), ChatColor.GREEN));
                 return true;
             } else {
-                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "This player is not a member of your faction.");
+                MessageUtils.smpError(p, "This player is not a member of your faction.");
                 return true;
             }
         }

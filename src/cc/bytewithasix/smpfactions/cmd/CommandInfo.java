@@ -1,6 +1,5 @@
 package cc.bytewithasix.smpfactions.cmd;
 
-import cc.bytewithasix.smpfactions.utils.MessageUtils;
 import cc.bytewithasix.smpfactions.utils.MysqlGetterSetter;
 import cc.bytewithasix.smpfactions.lib.SkullCreator;
 import cc.bytewithasix.smpfactions.obj.Faction;
@@ -30,14 +29,15 @@ public class CommandInfo implements CommandExecutor {
             Player p = (Player) sender;
 
             if(!p.hasPermission("smpfactions.info")) {
-                MessageUtils.smpError(p, "No permission.");
+                sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "No permission.");
                 return true;
             }
+
             Member m = MysqlGetterSetter.instance.getMember(p.getUniqueId());
 
             if(args.length == 0) {
                 if(m.getFactionId() == 0) {
-                    MessageUtils.smpError(p, "You are not in a faction.");
+                    sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "You are not in a faction.");
                     return true;
                 }
                 Faction faction = MysqlGetterSetter.instance.getFaction(m.getFactionId());
@@ -53,10 +53,10 @@ public class CommandInfo implements CommandExecutor {
                         initializeItems(faction.getName(), faction.getGovernmentTypeString(), UserUtils.getName(faction.getOwnerUUID()), faction.getOwnerUUID());
                         p.openInventory(inv);
                     } else {
-                        MessageUtils.smpError(p, "This faction doesn't exist.");
+                        sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "This faction doesn't exist.");
                     }
                 } else {
-                    MessageUtils.smpError(p, "No permission to access another faction's information.");
+                    sender.sendMessage(ChatColor.GOLD + "[SMPFactions] " + ChatColor.RED + "No permission to access another faction's information.");
                     return true;
                 }
             }

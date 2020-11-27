@@ -22,6 +22,14 @@ public class MessageUtils {
         p.sendMessage(String.format("%s[SMPFactions Admin] %s%s", ChatColor.GOLD, ChatColor.GREEN, s));
     }
 
+    public static void smpImportant(Player p, String s) {
+        p.sendMessage(String.format("%s[SMPFactions] %s%s", ChatColor.GOLD, ChatColor.AQUA, s));
+    }
+
+    public static void smpAdminImportant(Player p, String s) {
+        p.sendMessage(String.format("%s[SMPFactions Admin] %s%s", ChatColor.GOLD, ChatColor.AQUA, s));
+    }
+
     public static void smpBroadcast(String s) {
         Bukkit.broadcastMessage(String.format("%s[SMPFactions News] %s%s", ChatColor.GOLD, ChatColor.DARK_PURPLE, s));
     }

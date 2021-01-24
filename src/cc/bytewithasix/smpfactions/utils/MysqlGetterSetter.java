@@ -77,7 +77,7 @@ public class MysqlGetterSetter implements Listener {
             PreparedStatement statement = plugin.getConnection()
                     .prepareStatement("DELETE FROM `member` WHERE UUID=?");
             statement.setString(1, uuid.toString());
-            statement.executeUpdate();
+            statement.executeQuery();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -506,6 +506,7 @@ public class MysqlGetterSetter implements Listener {
                 War war = new War(results.getInt("id"),
                         results.getInt("attackerId"),
                         results.getInt("defenderId"),
+
                         results.getInt("attackerDeaths"),
                         results.getInt("defenderDeaths"),
                         results.getInt("finished"),
